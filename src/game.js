@@ -2,6 +2,7 @@
 // 创建一个用来配置游戏的对象
 let width=220
 let height=110
+let ratio=2
 let game=new Phaser.Game({
     type:Phaser.AUTO,
     width:width,
@@ -19,10 +20,13 @@ let game=new Phaser.Game({
     },
     render:{
         pixelArt:true
-    }
+    },
+    parent: 'phaser-app'
 })
 // 载入资源
-function preload(){
+function preload(){ 
+    window.addEventListener('resize',resize)
+    resize()
     // 载入图片资源
     this.load.image('bg','assets/bg.png')
     this.load.image('wall','assets/wall.png')
@@ -342,3 +346,21 @@ const rootx2=144
 const rooty=20
 const depth=10
 let is_init=false
+
+// 添加屏幕适配（在preload()里面注册'resize'事件）
+function resize(){
+    // console.log("resize")
+    let canvas=game.canvas
+    let width=window.innerWidth
+    let height=window.innerHeight
+    let wratio=width/height
+    if(wratio<ratio){
+        canvas.style.width=width+"px"
+        canvas.style.height=width/ratio+"px"
+    }else{
+        canvas.style.width=height*ratio+"px"
+        canvas.style.height=height+"px"
+    }
+}
+
+
