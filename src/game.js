@@ -1,4 +1,5 @@
 /**@type{import("../defs/phaser")} */
+// 创建一个用来配置游戏的对象
 let width=220
 let height=110
 let game=new Phaser.Game({
@@ -51,8 +52,9 @@ function preload(){
     this.load.audio('ground','assets/ground.wav')
     this.load.audio('click','assets/click.wav')
 }
-// 初始化游戏
+// 创建场景和物体
 function create(){    
+    // 第一次进入场景时加载准备界面（也可以单独作为一个场景）
     if(!is_init){
         this.add.image(width/2,height/2,'bg')
         this.add.image(width/2-30,height/2,'title')
@@ -80,10 +82,11 @@ function create(){
     // 添加角色和球
     speed=10
     jump=150
+    y_player=80
     g_player=800
     b_player=0.2
     f_player=0.5
-    player1=this.physics.add.sprite(50,80,'player')
+    player1=this.physics.add.sprite(50,y_player,'player')
     player1.tag="p1"
     player1.body.setCircle(10,3)
     player1.setBounce(b_player)
@@ -94,7 +97,7 @@ function create(){
     num1=this.add.image(0,0,'num1')
     bind(num1,player1,-5,0)
 
-    player2=this.physics.add.sprite(width-50,80,'player')
+    player2=this.physics.add.sprite(width-50,y_player,'player')
     player2.tag="p2"
     player2.setCircle(10,7)
     player2.setBounce(b_player)
@@ -115,7 +118,7 @@ function create(){
     ball.setCollideWorldBounds(true)
 
     this.time.addEvent({
-        delay:1000,
+        delay:2000,
         callback:fire_ball
     })
     // 添加碰撞
@@ -128,8 +131,7 @@ function create(){
     // 按键控制
     keys=this.input.keyboard.addKeys("W,S,UP,DOWN,SPACE")
     is_jump1=false
-    is_jump2=false
-
+    is_jump2=false      
     // 添加动画
     this.anims.create({
         key:'idle',
@@ -156,6 +158,7 @@ function create(){
     })
 }
 function update(){ 
+    // 如果按下就代表
     if(!is_init){
         this.input.on('pointerdown',()=>{
             is_init=true
@@ -264,9 +267,9 @@ function touch_ground(){
 function restart_round(){
     if(is_end_game)return
     player1.setX(50)
-    player1.setY(80)
+    player1.setY(y_player)
     player2.setX(width-50)
-    player2.setY(80)
+    player2.setY(y_player)
     dir1=1
     dir2=-1
     ball.setX(width/2)
