@@ -1,0 +1,27 @@
+{
+  "name": "jkgame",
+  "version": "1.0.0",
+  "description": "A game made for a pixel art tutorial.",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "electron": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiofiogamestudio/jkgame.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiofiogamestudio/jkgame/issues"
+  },
+  "homepage": "https://github.com/fiofiogamestudio/jkgame#readme"
+}
