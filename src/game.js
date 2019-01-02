@@ -78,7 +78,7 @@ function create(){
     wall.setY(height-wall.height+10)
     wall.refreshBody()
     ground=this.physics.add.staticSprite(width/2,0,'ground').setY(height+7)
-    ground.setY(height-ground.height)
+    ground.setY(height-ground.height+19)
     ground.refreshBody()
     ground.setY(ground.y-1) // 解决碰撞体不精确的问题
     // 添加UI
