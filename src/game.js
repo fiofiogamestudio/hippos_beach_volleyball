@@ -62,7 +62,13 @@ function create(){
     if(!is_init){
         this.add.image(width/2,height/2,'bg')
         this.add.image(width/2-30,height/2,'title')
-        add_tween.call(this,this.add.image(width/2+40,height/2+5,'start').setScale(1.1))
+        let start=this.add.image(width/2+40,height/2+5,'start').setScale(1.1)
+        add_tween.call(this,start)
+        as_button(start,()=>{
+            is_init=true
+            this.load.audio('ground','assets/ground.wav')
+            restart_game.bind(this)()
+        })
         return
     }
     // 添加背景
@@ -74,6 +80,7 @@ function create(){
     ground=this.physics.add.staticSprite(width/2,0,'ground').setY(height+7)
     ground.setY(height-ground.height)
     ground.refreshBody()
+    ground.setY(ground.y-1) // 解决碰撞体不精确的问题
     // 添加UI
     this.add.image(50,20,'panel1')
     this.add.image(width-50,20,'panel2')
@@ -114,7 +121,7 @@ function create(){
     bind(num2,player2,5,0)
 
     y_ball=30
-    g_ball=300
+    g_ball=250
     b_ball=0.8
     ball=this.physics.add.sprite(width/2,y_ball,'ball')
     ball.body.setCircle(7)
@@ -135,7 +142,9 @@ function create(){
     // 按键控制
     keys=this.input.keyboard.addKeys("W,S,UP,DOWN,SPACE")
     is_jump1=false
-    is_jump2=false      
+    is_jump2=false 
+    // 触摸控制
+    this.input.addPointer()
     // 添加动画
     this.anims.create({
         key:'idle',
@@ -162,15 +171,7 @@ function create(){
     })
 }
 function update(){ 
-    // 如果按下就代表
-    if(!is_init){
-        this.input.on('pointerdown',()=>{
-            is_init=true
-            this.load.audio('ground','assets/ground.wav')
-            restart_game.bind(this)()
-        })
-        return
-    }
+    if(!is_init)return
     update_bind()
     // 重新开始
     if(keys.SPACE.isDown){
@@ -205,7 +206,6 @@ function update(){
         player2.anims.play('idle',true)
         player2.setVelocityX(0)
     }
-    
 } 
 // 自定义函数：绑定位置
 function bind(obj1,obj2,posx,posy){
@@ -266,6 +266,8 @@ function touch_ground(){
     player2.setVelocityX(0)
     ball.setVelocityX(0)
     ball.setVelocityY(0)
+    ball.setGravityY(0)
+    ball.setY(ball.y-2) // 解决'arcade'碰撞不精确的问题
     is_end_round=true
 }
 function restart_round(){
