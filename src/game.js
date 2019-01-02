@@ -264,6 +264,8 @@ function touch_ground(){
     }
     player1.setVelocityX(0)
     player2.setVelocityX(0)
+    player1.anims.play('idle')
+    player2.anims.play('idle')
     ball.setVelocityX(0)
     ball.setVelocityY(0)
     ball.setGravityY(0)
@@ -331,8 +333,8 @@ function add_tween(obj){
     this.tweens.add({
         targets:obj,
         y:obj.y+5,
-        duration:1000,
-        ease:'Power2',
+        duration:800,
+        ease:'Cubic',
         yoyo:true,
         loop:-1
     })
