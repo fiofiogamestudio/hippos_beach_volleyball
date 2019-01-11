@@ -12,7 +12,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pack": "electron-packager . jkgame --win --out ./exe --arch=x64 --app-version=0.0.1 --electron-version=4.0.0"
   },
   "repository": {
     "type": "git",
