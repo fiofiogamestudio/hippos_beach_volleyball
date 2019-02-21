@@ -2,7 +2,7 @@
 
 A game made for a pixel art tutorial.
 
-Play it online: https://fiofiogamestudio.github.io/jkgame/.
+Play it online: https://fiofiogamestudio.github.io/hippos_beach_volleyball/.
 
 | Player |  Jump   |   Move    |
 | :----: | :-----: | :-------: |
